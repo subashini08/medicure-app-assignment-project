@@ -1,4 +1,5 @@
-FROM tomcat:9.0
-COPY target/* /usr/local/tomcat/webapps/
+FROM openjdk:11-jre-slim
+WORKDIR /app
+COPY target/medicare-app.jar .
 EXPOSE 8082
-CMD ["catalina.sh", "run"]
+CMD ["java", "-jar", "medicare-app.jar"]

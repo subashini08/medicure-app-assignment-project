@@ -58,7 +58,7 @@
 
     - name: Run Docker container
       docker_container:
-        name: medicare-app
+        name: medicure-app
         image: "subashini0801/medicure-app:{{app_version}}"
         state: started
         ports:

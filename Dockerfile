@@ -1,4 +1,5 @@
-FROM tomcat:9.0
-COPY target/*.war /usr/local/tomcat/webapps/
-EXPOSE 8080
-CMD ["catalina.sh", "run"]
+FROM openjdk:11
+MAINTAINER "`Subashini"
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} medicure-app.jar
+ENTRYPOINT ["java", "-jar", "medicure-app.jar"]

@@ -2,6 +2,7 @@
 - hosts: all
   become: yes
   vars:
+    app_version: "1.0.0"
     # Remove the redundant app_version assignment
 
   tasks:

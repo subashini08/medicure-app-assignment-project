@@ -2,19 +2,64 @@
 - hosts: all
   become: yes
   vars:
-    app_version: "1.0.0"
-    # Remove the redundant app_version assignment
+    app_version: "{{ app_version }}"
 
   tasks:
+    - name: Update apt package index (for Debian/Ubuntu-based systems)
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install required packages (for Debian/Ubuntu-based systems)
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Add Docker's official GPG key (for Debian/Ubuntu-based systems)
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Add Docker APT repository (for Debian/Ubuntu-based systems)
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Install Docker (for Debian/Ubuntu-based systems)
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install Docker (for RedHat/CentOS-based systems)
+      yum:
+        name: docker
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
     - name: Pull Docker image
       docker_image:
-        name: "${DOCKER_REPO}:{{app_version}}"
+        name: "medicare-app:{{ app_version }}"
         source: pull
-    
+
     - name: Run Docker container
       docker_container:
         name: medicare-app
-        image: "${DOCKER_REPO}:{{app_version}}"
+        image: "medicare-app:{{ app_version }}"
         state: started
         ports:
-          - "8080:8080"
+          - "8082:8082"

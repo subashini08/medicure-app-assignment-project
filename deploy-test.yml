@@ -57,9 +57,5 @@
         source: pull
 
     - name: Run Docker container
-      docker_container:
-        name: medicure-app
-        image: "subashini0801/medicure-app:{{app_version}}"
-        state: started
-        ports:
-          - "8080:8080"
+      command: docker run -itd -p 8080:8080 subashini0801/medicure-app:{{app_version}}
+      

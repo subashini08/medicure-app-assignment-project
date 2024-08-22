@@ -9,8 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.project.mentorbabaa</groupId>
-	<artifactId>medicure</artifactId>
-	<packaging>war</packaging>
+	<artifactId>medicure</artifactId>	
 	<version>0.0.1-SNAPSHOT</version>
 	<name>medicure</name>
 	<description>Industry ready project on based on Health Care Domain</description>

@@ -8,7 +8,7 @@ LABEL maintainer="Your Name <your.email@example.com>"
 WORKDIR /app
 
 # Copy the executable JAR file from the target directory
-COPY target/medicare-app-*.jar app.jar
+COPY target/*.jar app.jar
 
 # Expose the port that the application will run on
 EXPOSE 8080

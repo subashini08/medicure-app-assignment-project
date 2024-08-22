@@ -8,13 +8,13 @@
   tasks:
     - name: Pull Docker image
       docker_image:
-        name: "medicare-app:{{ app_version }}"
+        name: "${DOCKER_REPO}:${DOCKER_TAG}"
         source: pull
     
     - name: Run Docker container
       docker_container:
         name: medicare-app
-        image: "medicare-app:{{ app_version }}"
+        image: "${DOCKER_REPO}:${DOCKER_TAG}"
         state: started
         ports:
           - "8080:8080"
